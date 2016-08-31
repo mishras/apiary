@@ -62,6 +62,7 @@ Return a paginated list of talent
             + Attributes (array[Talent])
 
 
+
 ### Create a New Talent [POST]
 
 Partners may create their own pool of talent using this action. It takes a Talent object.
@@ -79,6 +80,29 @@ Partners may create their own pool of talent using this action. It takes a Talen
     + Body
 
             + Attributes (Talent)
+            
+            
+## Referrals List [/talent/referrals{?page}]
+
+Return a paginated list of referred talent 
+
++ Attributes (array[Talent])
+
++ Parameters
+    + page: 1 (optional, number) - The page of talent to return
+
+### List All Talent [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Link: </talent/referrals?page=2>; rel="next"
+
+    + Body
+
+            + Attributes (array[Talent])
+            
             
 # Data Structures
 ## Talent (object)
