@@ -1,4 +1,4 @@
-deleteme
+Apiary API Specs Home
 ========
 
-A dummy directory to play around with Git
+A place to version control Apirary API specs
