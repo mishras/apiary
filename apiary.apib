@@ -1,0 +1,140 @@
+FORMAT: 1A
+HOST: http://simppler.apiblueprint.org/
+
+# Talent
+
+Talent is a Simppler's talent retrieval API allowing consumers to view scored talent and employe referrals. You can view this documentation over at [Apiary](http://docs.simpplersapi.apiary.io).
+
+# Talent API Root [/]
+
+This resource does not have any attributes. Instead it offers the initial API affordances in the form of the links in the JSON body.
+
+It is recommend to follow the “url” link values, [Link](https://tools.ietf.org/html/rfc5988) or Location headers where applicable to retrieve resources. Instead of constructing your own URLs, to keep your client decoupled from implementation details.
+
+## Retrieve the Entry Point [GET]
+
++ Response 200 (application/json)
+
+        {
+            "questions_url": "/talent"
+        }
+
+## Group Talent
+
+Resources related to talent in the API.
+
+## Talent Detail [/talent/{talent_email}]
+
+Given an email address it return Talent detail for the person 
+
++ Parameters
+    + talent_email: 'jon@doe.co' (required, string) - email of the Talent in form of a string
+
+
++ Attributes (Talent)
+
+### View a Talent Detail [GET]
+
++ Response 200 (application/json)
+
+         + Attributes (Talent)
+
+
+## Talent List [/talent{?page}]
+
+Return a paginated list of talent 
+
++ Attributes (array[Talent])
+
++ Parameters
+    + page: 1 (optional, number) - The page of talent to return
+
+### List All Talent [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Link: </talent?page=2>; rel="next"
+
+    + Body
+
+            + Attributes (array[Talent])
+
+
+### Create a New Talent [POST]
+
+Partners may create their own pool of talent using this action. It takes a Talent object.
+
++ Request (application/json)
+
+        + Attributes (Talent)
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /talent/2
+
+    + Body
+
+            + Attributes (Talent)
+            
+# Data Structures
+## Talent (object)
++ first_name: Jon 
++ last_name: Doe
++ emails: ['jonr@doe.com'] (array)
++ phones: [3141211212] (array)
++ location (Location)
++ stage: lead 
++ referrers (array[Referrer])
++ social_profiles (array[SocialUrl])
++ positions (array[Position])
++ education (array[Education])
++ recommended_jobs (array[Job])
++ co_workers (array[CoWorker])
++ skills: array
+
+## Position (object)
++ start: ISO8601 date string 
++ end: ISO8601 date string 
++ name: string
++ title: string
+
+## Referrer (object)
++ first_name: string
++ last_name: string
++ emails: JSON array of strings
++ referred_at: ISO8601 date string 
++ job: Job object 
+
+## CoWorker (object)
++ first_name: string
++ last_name: string
++ emails: JSON array of strings
+
+## Education (object)
++ major: Economics
++ name: Massachusetts institute of technology
++ degree: BS
++ year: 2010
+
+
+## Job (object)
++ title: string
++ location: string
++ team: string
++ active: boolean
+
+## Location (object)
++ latitude: 35.12
++ longitude: 123.312
++ city: San Francisco 
++ state: CA
++ country: USA
++ zip: 23124
+
+## SocialUrl (object)
++ url: string
++ type: string
